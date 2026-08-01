@@ -77,4 +77,18 @@ public class AccountDTO {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    @Override
+    public String toString() {
+        return "AccountDTO{" +
+                "altKey=" + altKey +
+                ", customerId=" + customerId +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", accountType='" + accountType + '\'' +
+                ", accountStatus='" + accountStatus + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", ifscCode='" + ifscCode + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
 }

@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.util.Map;
 
 public class AccountRepository {
@@ -17,6 +18,10 @@ public class AccountRepository {
             "insert into tx_account(`alt_key`, `customer_id`, `account_number`, `account_type`, `account_status`, " +
                     "`bank_name`, `ifsc_code`, `balance`)" +
                     " values(?, ?, ?, ?, ?, ?, ?, ?)";
+
+    private final String ACCOUNT_REQUEST_QUERY =
+            "select * from tx_account"+
+                    " where account_number = ?";
 
     public void save(Map<String, Object> accountMap, String accountNumber) {
         // account_status=ACTIVE
@@ -38,5 +43,21 @@ public class AccountRepository {
         } catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ResultSet getAccountByAccountNumber(String accountNumber) {
+        ResultSet result = null;
+        try {
+            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement preparedQuery = conn.prepareStatement(ACCOUNT_REQUEST_QUERY);
+            preparedQuery.setString(1, accountNumber); /* since there is only one ? in the ACCOUNT_REQUEST_QUERY,
+            we are passing the parameter index as 1, the parameter index represents which ? we are referring to in the query */
+
+            result = preparedQuery.executeQuery();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

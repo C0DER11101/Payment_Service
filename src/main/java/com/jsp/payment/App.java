@@ -62,6 +62,7 @@ public class App {
 
         AccountController accountController = new AccountController();
 
+        /*
         CustomerDTO fetchedCustomerDTO = null;
 
         try {
@@ -78,5 +79,16 @@ public class App {
         accountMap.put("ifscCode", accountMap.get("customerId").toString() + SequenceGeneratorUtil.randomNum());
 
         accountController.createAccount(accountMap);
+         */
+
+        AccountDTO accountDTO = new AccountDTO();
+
+        try {
+            accountDTO = accountController.getAccount("6796_6796433_442");
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(accountDTO);
     }
 }
