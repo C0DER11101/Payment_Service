@@ -11,6 +11,11 @@ import java.math.BigInteger;
 
 public class AccountService {
     AccountRepository accountRepo = new AccountRepository();
+
+    public static void processCreateConnectionPool() {
+        AccountRepository.createConnectionPool();
+    }
+
     public void processCreateAccount(Map<String, Object> accountMap) {
         // account_number: customerId_ifscCode_randomNumber
 
@@ -40,5 +45,9 @@ public class AccountService {
         }
 
         return accountDto;
+    }
+
+    public void processUpdateBalance(String accountNumber, double balance) {
+        accountRepo.updateBalance(accountNumber, balance);
     }
 }

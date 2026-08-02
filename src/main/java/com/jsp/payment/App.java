@@ -16,6 +16,8 @@ import java.util.HashMap;
 
 public class App {
     public static void main(String[] args) {
+        AccountController.createConnPool();
+
         CustomerDTO customerDTO1 = new CustomerDTO();
         customerDTO1.setFirstName("Priyanuj");
         customerDTO1.setLastName("Bora");
@@ -80,6 +82,8 @@ public class App {
 
         accountController.createAccount(accountMap);
          */
+
+        accountController.updateBal("6796_6796433_442", 3000);
 
         AccountDTO accountDTO = new AccountDTO();
 

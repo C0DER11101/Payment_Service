@@ -8,6 +8,11 @@ import java.util.Map;
 
 public class AccountController {
     AccountService accountService = new AccountService();
+
+    public static void createConnPool() {
+        AccountService.processCreateConnectionPool();
+    }
+
     public void createAccount(Map<String, Object> accountMap) {
         //keys: customerId, accountType, ifscCode
         accountService.processCreateAccount(accountMap);
@@ -15,5 +20,9 @@ public class AccountController {
 
     public AccountDTO getAccount(String accountNumber) throws SQLException {
         return accountService.processGetAccountByAccountNumber(accountNumber);
+    }
+
+    public void updateBal(String accountNumber, double balance) {
+        accountService.processUpdateBalance(accountNumber, balance);
     }
 }
