@@ -3,6 +3,8 @@ package com.jsp.payment.service;
 import com.jsp.payment.dto.CustomerDTO;
 import com.jsp.payment.repository.CustomerRepository;
 import com.jsp.payment.util.SequenceGeneratorUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.math.BigInteger;
 
+@Component
 public class CustomerService {
-    CustomerRepository customerRepo = new CustomerRepository();
+
+    @Autowired
+    CustomerRepository customerRepo;
 
     private final String CUSTOMER_INSERT_QUERY =
             "insert into tx_customer" +
@@ -29,6 +34,10 @@ public class CustomerService {
 
     private final String WHERE_CLAUSE_ALTKEY =
             "where alt_key = ";
+
+    public CustomerService() {
+        System.out.println(this.getClass().getSimpleName() + " object created");
+    }
 
     public void processRegister(CustomerDTO customerDto) {
         String insertQuery = prepareInsertQuery(customerDto);

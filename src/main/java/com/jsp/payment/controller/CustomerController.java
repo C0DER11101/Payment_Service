@@ -2,6 +2,8 @@ package com.jsp.payment.controller;
 
 import com.jsp.payment.dto.CustomerDTO;
 import com.jsp.payment.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.sql.SQLException;
@@ -9,8 +11,14 @@ import java.util.List;
 
 import java.sql.ResultSet;
 
+@Component
 public class CustomerController {
-    CustomerService customerService = new CustomerService();
+    @Autowired
+    CustomerService customerService;
+
+    public CustomerController() {
+        System.out.println(this.getClass().getSimpleName() + " object created");
+    }
 
     public void register(CustomerDTO customerDto) {
         customerService.processRegister(customerDto);

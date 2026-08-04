@@ -1,12 +1,14 @@
 package com.jsp.payment.repository;
 
 import com.jsp.payment.util.SequenceGeneratorUtil;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class AccountRepository {
     private final static int MAX_CONN = 100;
     private static List<Connection> pool = new ArrayList<>(MAX_CONN);
@@ -24,6 +26,10 @@ public class AccountRepository {
                     " where account_number = ?";
 
     private final String UPDATE_BALANCE_PROC = "call UpdateBalance(?, ?)";
+
+    public AccountRepository() {
+        System.out.println(this.getClass().getSimpleName() + " object created");
+    }
 
     public static void createConnectionPool() {
         for(int i = 1; i <= MAX_CONN; i++) {

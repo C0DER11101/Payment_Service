@@ -3,14 +3,23 @@ package com.jsp.payment.service;
 import com.jsp.payment.dto.AccountDTO;
 import com.jsp.payment.repository.AccountRepository;
 import com.jsp.payment.util.SequenceGeneratorUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 import java.math.BigInteger;
 
+@Component
 public class AccountService {
-    AccountRepository accountRepo = new AccountRepository();
+
+    public AccountService() {
+        System.out.println(this.getClass().getSimpleName() + " object created");
+    }
+
+    @Autowired
+    AccountRepository accountRepo;
 
     public static void processCreateConnectionPool() {
         AccountRepository.createConnectionPool();

@@ -5,6 +5,8 @@ import com.jsp.payment.controller.CustomerController;
 import com.jsp.payment.dto.AccountDTO;
 import com.jsp.payment.dto.CustomerDTO;
 import com.jsp.payment.util.SequenceGeneratorUtil;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.jsp.payment.config.AppConfig;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +20,7 @@ public class App {
     public static void main(String[] args) {
         AccountController.createConnPool();
 
+        /*
         CustomerDTO customerDTO1 = new CustomerDTO();
         customerDTO1.setFirstName("Priyanuj");
         customerDTO1.setLastName("Bora");
@@ -39,6 +42,7 @@ public class App {
         customerDTO2.setKycStatus("incomplete");
 
         customerController.register(customerDTO2);
+         */
 
         //List<CustomerDTO> list = null;
 
@@ -62,7 +66,7 @@ public class App {
         customerController.updatePhoneNumber(BigInteger.valueOf(1172), "8876265959");
          */
 
-        AccountController accountController = new AccountController();
+        //AccountController accountController = new AccountController();
 
         /*
         CustomerDTO fetchedCustomerDTO = null;
@@ -83,6 +87,7 @@ public class App {
         accountController.createAccount(accountMap);
          */
 
+        /*
         accountController.updateBal("6796_6796433_442", 3000);
 
         AccountDTO accountDTO = new AccountDTO();
@@ -94,5 +99,30 @@ public class App {
         }
 
         System.out.println(accountDTO);
+         */
+
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.register(AppConfig.class);
+        context.refresh();
+
+        //AccountController accountController = context.getBean(AccountController.class);
+
+        //AccountDTO accountDTO = null;
+
+        /*
+        try {
+            accountDTO = accountController.getAccount("6796_6796433_442");
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+         */
+
+        //System.out.println(accountDTO);
+
+        context.getBean(AccountController.class);
+        context.getBean(AccountController.class);
+        context.getBean(AccountController.class);
+        context.getBean(AccountController.class);
+        context.getBean(AccountController.class);
     }
 }

@@ -1,17 +1,23 @@
 package com.jsp.payment.repository;
 
 import com.jsp.payment.dto.CustomerDTO;
+import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.sql.*;
 import java.util.List;
 
+@Component
 public class CustomerRepository {
     // A URL consists of protocol + host + port number + data
     private static final String URL = "jdbc:mysql://localhost:3306/m4_config"; /* protocol is jdbc:mysql, host is localhost, port number is 3306 and data is m4_config (database name) */
     private static final String USERNAME = "root";
     private static final String PASSWORD = "r00t_3nj0y1n9_my$ql";
+
+    public CustomerRepository() {
+        System.out.println(this.getClass().getSimpleName() + " object created");
+    }
 
     public void save(String insertQuery) {
         try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
