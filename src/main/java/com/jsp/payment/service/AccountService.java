@@ -21,9 +21,11 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepo;
 
+    /*
     public static void processCreateConnectionPool() {
         AccountRepository.createConnectionPool();
     }
+     */
 
     public void processCreateAccount(Map<String, Object> accountMap) {
         // account_number: customerId_ifscCode_randomNumber

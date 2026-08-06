@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class App {
     public static void main(String[] args) {
-        AccountController.createConnPool();
+        //AccountController.createConnPool();
 
         /*
         CustomerDTO customerDTO1 = new CustomerDTO();
@@ -87,8 +87,13 @@ public class App {
         accountController.createAccount(accountMap);
          */
 
-        /*
-        accountController.updateBal("6796_6796433_442", 3000);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.register(AppConfig.class);
+        context.refresh();
+
+        AccountController accountController = context.getBean(AccountController.class);
+
+        accountController.updateBal("6796_6796433_442", 100000);
 
         AccountDTO accountDTO = new AccountDTO();
 
@@ -99,11 +104,7 @@ public class App {
         }
 
         System.out.println(accountDTO);
-         */
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.register(AppConfig.class);
-        context.refresh();
 
         //AccountController accountController = context.getBean(AccountController.class);
 
@@ -119,10 +120,12 @@ public class App {
 
         //System.out.println(accountDTO);
 
+        /*
         context.getBean(AccountController.class);
         context.getBean(AccountController.class);
         context.getBean(AccountController.class);
         context.getBean(AccountController.class);
         context.getBean(AccountController.class);
+         */
     }
 }

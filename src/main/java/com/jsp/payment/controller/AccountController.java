@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import java.sql.SQLException;
 import java.util.Map;
 
-//@Scope("singleton") // this is the default if we don't provide any scope: singleton means only one object will be created and no new objects will be created
-@Scope("prototype") // it will create a new object of AccountController everytime we call getBean() in App.java
+@Scope("singleton") // this is the default if we don't provide any scope: singleton means only one object will be created and no new objects will be created
+//@Scope("prototype") // it will create a new object of AccountController everytime we call getBean() in App.java
 @Component // tells spring-core to create an object this class
 public class AccountController {
 
@@ -26,9 +26,11 @@ public class AccountController {
     // 2. Setter -> use @Autowired above the required setter
     // 3. Constructors -> create a parameterized constructor that accepts a reference of the target property
 
+    /*
     public static void createConnPool() {
         AccountService.processCreateConnectionPool();
     }
+     */
 
     public void createAccount(Map<String, Object> accountMap) {
         //keys: customerId, accountType, ifscCode

@@ -1,6 +1,7 @@
 package com.jsp.payment.repository;
 
 import com.jsp.payment.util.SequenceGeneratorUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -12,9 +13,9 @@ import java.util.Map;
 public class AccountRepository {
     private final static int MAX_CONN = 100;
     private static List<Connection> pool = new ArrayList<>(MAX_CONN);
-    private static final String URL = "jdbc:mysql://localhost:3306/m4_config"; /* protocol is jdbc:mysql, host is localhost, port number is 3306 and data is m4_config (database name) */
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "r00t_3nj0y1n9_my$ql";
+
+    @Autowired
+    Connection connection;
 
     private final String CREATE_ACCOUNT_QUERY =
             "insert into tx_account(`alt_key`, `customer_id`, `account_number`, `account_type`, `account_status`, " +
@@ -31,6 +32,7 @@ public class AccountRepository {
         System.out.println(this.getClass().getSimpleName() + " object created");
     }
 
+    /*
     public static void createConnectionPool() {
         for(int i = 1; i <= MAX_CONN; i++) {
             try {
@@ -40,14 +42,14 @@ public class AccountRepository {
             }
         }
     }
+     */
 
     public void save(Map<String, Object> accountMap, String accountNumber) {
         // account_status=ACTIVE
         // balance=0
 
         try {
-            Connection conn = AccountRepository.pool.get(0);
-            PreparedStatement preparedQuery = conn.prepareStatement(CREATE_ACCOUNT_QUERY);
+            PreparedStatement preparedQuery = connection.prepareStatement(CREATE_ACCOUNT_QUERY);
             preparedQuery.setInt(1, SequenceGeneratorUtil.generateAltKey().intValue());
             preparedQuery.setString(2, accountMap.get("customerId").toString());
             preparedQuery.setString(3, accountNumber);
@@ -66,8 +68,7 @@ public class AccountRepository {
     public ResultSet getAccountByAccountNumber(String accountNumber) {
         ResultSet result = null;
         try {
-            Connection conn = AccountRepository.pool.get(0);
-            PreparedStatement preparedQuery = conn.prepareStatement(ACCOUNT_REQUEST_QUERY);
+            PreparedStatement preparedQuery = connection.prepareStatement(ACCOUNT_REQUEST_QUERY);
             preparedQuery.setString(1, accountNumber); /* since there is only one ? in the ACCOUNT_REQUEST_QUERY,
             we are passing the parameter index as 1, the parameter index represents which ? we are referring to in the query */
 
@@ -81,8 +82,7 @@ public class AccountRepository {
 
     public void updateBalance(String accountNumber, double balance) {
         try {
-            Connection conn = AccountRepository.pool.get(0);
-            CallableStatement statement = conn.prepareCall(UPDATE_BALANCE_PROC);
+            CallableStatement statement = connection.prepareCall(UPDATE_BALANCE_PROC);
             statement.setString("account_number", accountNumber);
             statement.setDouble("balance", balance);
             statement.executeUpdate();
