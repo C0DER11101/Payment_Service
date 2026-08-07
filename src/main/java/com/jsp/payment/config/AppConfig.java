@@ -3,6 +3,7 @@ package com.jsp.payment.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +14,7 @@ info of our project that we provide to an external library
 is called configuration.
  */
 
+@EnableTransactionManagement
 @Configuration // -> that's why we provide this annotation
 @ComponentScan(basePackages = "com.jsp.payment")
 public class AppConfig {

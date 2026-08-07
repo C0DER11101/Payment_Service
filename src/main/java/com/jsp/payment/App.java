@@ -2,8 +2,11 @@ package com.jsp.payment;
 
 import com.jsp.payment.controller.AccountController;
 import com.jsp.payment.controller.CustomerController;
+import com.jsp.payment.controller.TransactionController;
 import com.jsp.payment.dto.AccountDTO;
 import com.jsp.payment.dto.CustomerDTO;
+import com.jsp.payment.dto.TransactionDTO;
+import com.jsp.payment.model.TransactionModel;
 import com.jsp.payment.util.SequenceGeneratorUtil;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.jsp.payment.config.AppConfig;
@@ -127,5 +130,30 @@ public class App {
         context.getBean(AccountController.class);
         context.getBean(AccountController.class);
          */
+
+        TransactionController txController = context.getBean(TransactionController.class);
+
+        /*
+        TransactionDTO txDto = new TransactionDTO();
+
+        txDto.setFromAccount("6796_6796433_442");
+        txDto.setToAccount("2399_3456791_543");
+        txDto.setAmount(30000d);
+        txDto.setTxType(null);
+        txDto.setPaymentMode(null);
+
+        txController.createTransaction(txDto);
+         */
+
+        TransactionModel tm = txController.getById(BigInteger.valueOf(23372));
+
+        System.out.println(tm);
+
+        List<TransactionModel> list = txController.getAll();
+
+        System.out.println(list);
+
+        list.stream()
+                .forEach(System.out::println);
     }
 }

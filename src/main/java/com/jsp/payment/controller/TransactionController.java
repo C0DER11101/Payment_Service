@@ -1,8 +1,14 @@
 package com.jsp.payment.controller;
 
+import com.jsp.payment.model.TransactionModel;
 import com.jsp.payment.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.jsp.payment.dto.TransactionDTO;
+
+import java.math.BigInteger;
+import java.util.List;
 
 @Component
 public class TransactionController {
@@ -10,7 +16,21 @@ public class TransactionController {
     @Autowired
     TransactionService txService;
 
+    /*
     public TransactionController() {
         System.out.println(this.getClass().getSimpleName() + " object created");
+    }
+     */
+
+    public void createTransaction(TransactionDTO txDto) {
+        txService.processTransaction(txDto);
+    }
+
+    public TransactionModel getById(BigInteger altKey) {
+        return txService.processFindById(altKey);
+    }
+
+    public List<TransactionModel> getAll() {
+        return txService.processFindAll();
     }
 }
