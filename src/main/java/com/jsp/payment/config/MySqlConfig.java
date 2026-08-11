@@ -41,8 +41,8 @@ public class MySqlConfig {
     @Bean
     public JpaTransactionManager getTxManager() { // JpaTransaction is used for managing transactions
         /*
-        A transaction is series of multiple DB operations.
-        If anyone DB operation fails, all the DB operations executed before it are rolled back!
+        A transaction is a series of multiple DB operations.
+        If even one DB operation fails, all the DB operations performed before it are rolled back!
          */
 
         JpaTransactionManager transactionManager = new JpaTransactionManager();

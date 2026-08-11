@@ -46,7 +46,7 @@ public class TransactionRepository {
     }
 
     public List<TransactionModel> findAll() {
-        // HQL query example: SELECT * FROM TransactionModel;
+        // HQL query example: FROM TransactionModel;
         // SQL query: SELECT * FROM tx_transaction;
         // HQL is not SQL!!
         // This was required because EntityManager doesn't have a suitable method to retrieve all the records from a given database table
