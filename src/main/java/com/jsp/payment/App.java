@@ -145,6 +145,7 @@ public class App {
         txController.createTransaction(txDto);
          */
 
+        /*
         TransactionModel tm = txController.getById(BigInteger.valueOf(23372));
 
         System.out.println(tm);
@@ -154,6 +155,10 @@ public class App {
         System.out.println(list);
 
         list.stream()
+                .forEach(System.out::println);
+         */
+
+        txController.getTransactionByPaymentMode("online").stream()
                 .forEach(System.out::println);
     }
 }

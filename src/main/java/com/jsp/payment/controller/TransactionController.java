@@ -33,4 +33,8 @@ public class TransactionController {
     public List<TransactionModel> getAll() {
         return txService.processFindAll();
     }
+
+    public List<TransactionModel> getTransactionByPaymentMode(String paymentMode) {
+        return txService.processGetTransactionByPaymentMode(paymentMode);
+    }
 }

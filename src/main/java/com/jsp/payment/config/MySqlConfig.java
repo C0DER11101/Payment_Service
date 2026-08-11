@@ -14,7 +14,7 @@ import java.util.Properties;
 public class MySqlConfig {
 
     @Bean
-    public DataSource getDataSource() {
+    public DataSource getDataSource() { // creates a connection
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUsername("root");
         dataSource.setPassword("r00t_3nj0y1n9_my$ql");
@@ -25,21 +25,26 @@ public class MySqlConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() { // manages connections, implements EntityManagerFactory
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setDataSource(getDataSource());
-        factoryBean.setPackagesToScan("com.jsp.payment.model");
+        factoryBean.setDataSource(getDataSource()); // set the data source to get the connection to the database
+        factoryBean.setPackagesToScan("com.jsp.payment.model"); // look for the Entity class in the provided package path
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties jpaProps = new Properties();
-        jpaProps.put("hibernate.show_sql", "true");
+        jpaProps.put("hibernate.show_sql", "true"); // properties are stored as key-value pairs
         factoryBean.setJpaProperties(jpaProps);
 
         return factoryBean;
     }
 
     @Bean
-    public JpaTransactionManager getTxManager() {
+    public JpaTransactionManager getTxManager() { // JpaTransaction is used for managing transactions
+        /*
+        A transaction is series of multiple DB operations.
+        If anyone DB operation fails, all the DB operations executed before it are rolled back!
+         */
+
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(getEntityManagerFactory().getObject());
 

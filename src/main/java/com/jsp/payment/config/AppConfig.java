@@ -14,7 +14,7 @@ info of our project that we provide to an external library
 is called configuration.
  */
 
-@EnableTransactionManagement
+@EnableTransactionManagement // -> enables transaction management so that the data gets reflected in the table
 @Configuration // -> that's why we provide this annotation
 @ComponentScan(basePackages = "com.jsp.payment")
 public class AppConfig {

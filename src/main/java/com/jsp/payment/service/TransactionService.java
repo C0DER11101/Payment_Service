@@ -45,4 +45,8 @@ public class TransactionService {
     public List<TransactionModel> processFindAll() {
         return txRepo.findAll();
     }
+
+    public List<TransactionModel> processGetTransactionByPaymentMode(String paymentMode) {
+        return txRepo.findByPaymentMode(paymentMode);
+    }
 }
