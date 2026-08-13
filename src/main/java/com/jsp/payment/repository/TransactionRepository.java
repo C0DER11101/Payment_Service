@@ -59,4 +59,25 @@ public class TransactionRepository {
         hqlQuery.setParameter("pM", paymentMode);
         return hqlQuery.getResultList();
     }
+
+    @Transactional
+    public void updateStatusByTransactionId(String transactionId, String status) {
+        Query hqlQuery = entityManager.createQuery("update TransactionModel set status=:stats where transactionId=:txId");
+        hqlQuery.setParameter("txId", transactionId);
+        hqlQuery.setParameter("stats", status);
+        hqlQuery.executeUpdate();
+    }
+
+    public List<TransactionModel> findByTxStatus(String stat) {
+        Query hql = entityManager.createQuery("from TransactionModel where status=:stat");
+        hql.setParameter("stat", stat);
+        return hql.getResultList();
+    }
+
+    @Transactional
+    public void updateByTxStatus(List<BigInteger> txList) {
+        Query hql = entityManager.createQuery("update TransactionModel set status='completed' where altKey in:txList");
+        hql.setParameter("txList", txList);
+        hql.executeUpdate();
+    }
 }

@@ -6,7 +6,9 @@ import com.jsp.payment.controller.TransactionController;
 import com.jsp.payment.dto.AccountDTO;
 import com.jsp.payment.dto.CustomerDTO;
 import com.jsp.payment.dto.TransactionDTO;
+import com.jsp.payment.dto.WithdrawDTO;
 import com.jsp.payment.model.TransactionModel;
+import com.jsp.payment.scheduler.SchedulerInitializer;
 import com.jsp.payment.util.SequenceGeneratorUtil;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.jsp.payment.config.AppConfig;
@@ -94,6 +96,7 @@ public class App {
         context.register(AppConfig.class);
         context.refresh();
 
+        /*
         AccountController accountController = context.getBean(AccountController.class);
 
         accountController.updateBal("6796_6796433_442", 100000);
@@ -107,6 +110,7 @@ public class App {
         }
 
         System.out.println(accountDTO);
+         */
 
 
         //AccountController accountController = context.getBean(AccountController.class);
@@ -158,7 +162,29 @@ public class App {
                 .forEach(System.out::println);
          */
 
+        /*
         txController.getTransactionByPaymentMode("online").stream()
                 .forEach(System.out::println);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("79814861", "completed");
+        map.put("170838672", "completed");
+        txController.updateTransactionStatusById(map);
+         */
+
+        /*
+        WithdrawDTO withdrawalAmount = new WithdrawDTO();
+        withdrawalAmount.setAmount(3000d);
+        withdrawalAmount.setPaymentMode("offline");
+        withdrawalAmount.setFromAccountNumber("6796_6796433_442");
+        withdrawalAmount.setToAccountNumber("6796_6796433_442");
+        withdrawalAmount.setTxType("offline");
+
+        txController.withdrawAmount(withdrawalAmount);
+         */
+
+        //txController.getByTxStatus("in progress");
+
+        SchedulerInitializer schedulerInitializer = context.getBean(SchedulerInitializer.class);
     }
 }
