@@ -18,7 +18,7 @@ public class SchedulerInitializer {
     @Autowired
     TransactionService txService;
 
-    @PostConstruct
+    @PostConstruct // marks init() for one-time-execution by spring after dependency (TransactionService) injection is complete and before the instance of this class is put into service
     public void init() {
         JobKey jobKey = new JobKey(jobUniqueKey, jobGroupName);
 
